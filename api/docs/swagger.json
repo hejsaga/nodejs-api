@@ -1,0 +1,108 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Etimo's inventory",
+    "description": "Etimo's simple RESTful API"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Inventory",
+      "description": "Endpoints for product inventory"
+    }
+  ],
+  "paths": {
+    "api/inventory": {
+      "get": {
+        "tags": ["Inventory"],
+        "summary": "Get inventory stock",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Inventory"
+            }
+          }
+        }
+      }
+    },
+    "api/inventory/add": {
+      "post": {
+        "tags": ["Inventory"],
+        "summary": "Update inventory stock",
+        "description": "Add products to inventory stock",
+        "parameters": [
+          {
+            "required": true,
+            "stockUpdate": "Number",
+            "in": "body",
+            "description": "Expects number to increase the stock with in raw JSON.",
+            "schema": {
+              "$ref": "#/definitions/InventoryUpdate"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Stock successfully updated",
+            "schema": {
+              "$ref": "#/definitions/Inventory"
+            }
+          }
+        }
+      }
+    },
+    "api/inventory/sell": {
+      "post": {
+        "tags": ["Inventory"],
+        "summary": "Update inventory stock",
+        "description": "Sell products from inventory",
+        "parameters": [
+          {
+            "required": true,
+            "stockUpdate": "Number",
+            "in": "body",
+            "description": "Expects number to decrease the stock with in raw JSON.",
+            "schema": {
+              "$ref": "#/definitions/InventoryUpdate"
+            }
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Stock successfully updated",
+            "schema": {
+              "$ref": "#/definitions/Inventory"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Inventory": {
+      "properties": {
+        "product": {
+          "type": "string"
+        },
+        "stock": {
+          "type": "number"
+        }
+      }
+    },
+    "InventoryUpdate": {
+      "properties": {
+        "updateStock": {
+          "type": "number"
+        }
+      }
+    }
+  },
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"]
+}
